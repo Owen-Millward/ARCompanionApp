@@ -53,3 +53,6 @@ C:\Users\Michael Brown\Desktop\AR\DisruptAR\Temp\bin\Debug\UnityEditor.iOS.Exten
 C:\Users\Michael Brown\Desktop\AR\DisruptAR\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
 C:\Users\Michael Brown\Desktop\AR\DisruptAR\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\Michael Brown\Desktop\AR\DisruptAR\obj\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\Jack\Documents\GDPM Year 3\Semester 2\Professional Project - Development and Delivery\AR Source Control\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
+C:\Users\Jack\Documents\GDPM Year 3\Semester 2\Professional Project - Development and Delivery\AR Source Control\obj\Debug\Assembly-CSharp-Editor.dll
+C:\Users\Jack\Documents\GDPM Year 3\Semester 2\Professional Project - Development and Delivery\AR Source Control\obj\Debug\Assembly-CSharp-Editor.pdb
