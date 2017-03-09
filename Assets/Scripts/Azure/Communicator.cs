@@ -5,7 +5,7 @@ using System.Net;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows;
+//using UnityEngine.Windows;
 using UnityEngine.Networking;
 using Unity3dAzure.StorageServices;
 

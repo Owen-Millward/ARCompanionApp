@@ -109,24 +109,27 @@ public class Interactible : MonoBehaviour
 			break;
 			
 		case ButtonType.SHOCK:
-			if (charge >= limitOne) {
+			if (PowerMan.getTime(1) < PowerMan.getUnlockTime()) {
 				pwr.ShockButton ();
-				PowerMan.usePowerUp ((int)PowerMan.getPowerLimit (1));
 			} 
+			PowerMan.usePowerUp (1);
+			
 			break;
 			
 		case ButtonType.PURGE:
-			if (charge >= limitThree) {
+			if (PowerMan.getTime(3) < PowerMan.getUnlockTime()) {
 				pwr.PurgeButton ();
-				PowerMan.usePowerUp ((int)PowerMan.getPowerLimit (3));
-			}
+			} 
+			PowerMan.usePowerUp (3);
+			
 			break;
 			
 		case ButtonType.SHIELD:
-			if (charge >= limitTwo) {
+			if (PowerMan.getTime(2) < PowerMan.getUnlockTime()) {
 				pwr.SheildButton ();
-				PowerMan.usePowerUp ((int)PowerMan.getPowerLimit (2));
-			}
+			} 
+			PowerMan.usePowerUp (2);
+			
 			break;
 		}
 

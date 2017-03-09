@@ -24,6 +24,9 @@ public class PowerUpController : MonoBehaviour//, ITableViewDataSource
 	// App Service Tables defined using a DataModel
 	private MobileServiceTable<SpawnFlag> _SFtable;
 
+	//powerup manager
+	public PowerupManager powerMan;
+
 	// Local spawn flag models for updating the server
 	SpawnFlag sheild = new SpawnFlag();
 	SpawnFlag shock = new SpawnFlag();

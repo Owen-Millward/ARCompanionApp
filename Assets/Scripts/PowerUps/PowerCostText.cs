@@ -16,7 +16,7 @@ public class PowerCostText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (PowerMan.getCharge () < cost) {
+		if (PowerMan.isUnlocked(ID) == false) {
 			GetComponent<TextMesh> ().color = new Color (0.5f, 0.5f, 0.5f);
 		} else {
 			GetComponent<TextMesh> ().color = new Color (1.0f, 1.0f, 1.0f);

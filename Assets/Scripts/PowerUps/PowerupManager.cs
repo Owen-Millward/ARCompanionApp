@@ -5,37 +5,100 @@ using UnityEngine;
 public class PowerupManager : MonoBehaviour {
 
 	private float charge = 0.0f;
+	public bool unlockingPowerUP;
+	public bool usingPowerUp;
+	public bool[] unlocks;
 	public int PowerLimitOne;
 	public int PowerLimitTwo;
 	public int PowerLimitThree;
+	public float timeModifier;
+	private float time;
+	public float[] cooldowns;
+	public float unlockTime;
+	private int unlockID;
+	private int useID;
 
 	// Use this for initialization
 	void Start () {
-		
+		unlockingPowerUP = false;
+		usingPowerUp = false;
+		for (int i = 0; i < 3; i++) {
+			unlocks [i] = false;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		if (unlockingPowerUP) {
+			//increment timer waiting for powerup
+			cooldowns [unlockID - 1] += Time.deltaTime;
+
+			if (cooldowns [unlockID - 1] > unlockTime) {
+
+				//power up has finished unlocking and player can charge again
+				unlockingPowerUP = false;
+
+				//unlock correct powerup
+				unlocks [unlockID - 1] = true;
+			}
+		} 
+		else {
+			if (usingPowerUp){
+				//reset timer
+				cooldowns[useID-1] = 0;
+				usingPowerUp = false;
+			}
+		}
+
+		for (int i = 1; i < 4; i++) {
+			if (isUnlocked(i) && getTime(i) < unlockTime) {
+				cooldowns [i-1] += Time.deltaTime;
+			}
+		}
+
+
 	}
 
 	public void charging(){
-		if (charge < 100.0f) {
-			charge += Time.deltaTime * 3;
+		
+		//if a power up isnt being unlocked and charge is lower than 100% increase charge
+		//time modifier adjusts how fast it charges (timeModifier charge% increase per second);
+		if (!unlockingPowerUP) {
+			if (charge < 100.0f) {
+				charge += Time.deltaTime * timeModifier;
+			}
+			//deals error showing percentage above 100
+			if (charge > 100.0f) {
+				charge = 100.0f;
+			}
 		}
-		if (charge > 100.0f) {
-			charge = 100.0f;
-		}
+
 	}
 
 	public float getCharge(){
 		return charge;
 	}
+		
+	public void usePowerUp( int powerUpID ){
+			
+		//check for enough charge and that another ability isnt currently being unlocked
+		if (charge >= getPowerLimit (powerUpID) && !unlockingPowerUP && isUnlocked(powerUpID) == false) {
 
-	public void usePowerUp( int cost ){
-		charge -= cost;
+			//set unlocking to true
+			unlockingPowerUP = true;
+			unlockID = powerUpID;
+
+		}
+
+		if(isUnlocked(powerUpID) && usingPowerUp == false && getTime(powerUpID) > unlockTime){
+			usingPowerUp = true;
+			useID = powerUpID;
+		}
+			
 	}
 
+	//return the power limit for selected power up
 	public int getPowerLimit(int limitID){
 		switch (limitID) {
 		case 1:
@@ -49,5 +112,18 @@ public class PowerupManager : MonoBehaviour {
 			break;
 		}
 		return 0;
+	}
+
+	//return if power up is unlocked
+	public bool isUnlocked(int powerUpID){
+		return unlocks [powerUpID - 1];
+	}
+
+	public float getTime(int powerUpID){
+		return cooldowns[powerUpID-1];
+	}
+
+	public float getUnlockTime(){
+		return unlockTime;
 	}
 }
