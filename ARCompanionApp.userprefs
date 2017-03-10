@@ -1,13 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PowerUps\PowerupManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FuseBox\FuseManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="94" Column="76" />
-      <File FileName="Assets\Scripts\PowerUps\PowerUpButton.cs" Line="10" Column="32" />
-      <File FileName="Assets\Scripts\PowerUps\PowerUpController.cs" Line="80" Column="3" />
-      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="124" Column="4" />
-      <File FileName="Assets\Scripts\PowerUps\PowerCostText.cs" Line="14" Column="57" />
-      <File FileName="Assets\Scripts\PowerUps\UnlockBar.cs" Line="2" Column="22" />
+      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PowerUps\PowerUpButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PowerUps\PowerUpController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PowerUps\PowerCostText.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PowerUps\UnlockBar.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FuseBox\FuseManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

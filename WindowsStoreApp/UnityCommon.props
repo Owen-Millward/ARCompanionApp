@@ -2,9 +2,9 @@
     <PropertyGroup>
         <UnityInstallationDir>C:\Program Files\Unity\Editor\</UnityInstallationDir>
         <UnityWSASolutionName>DisruptAR</UnityWSASolutionName>
-        <UnityWSASolutionDir>C:\Users\Michael Brown\Desktop\AR\DisruptAR\WindowsStoreApp\</UnityWSASolutionDir>
+        <UnityWSASolutionDir>C:\Users\Michael Brown\Documents\ARCompanionApp\WindowsStoreApp\</UnityWSASolutionDir>
         <UnityWSAPlayerDir>C:\Program Files\Unity\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
         <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
-        <UnityProjectDir>C:\Users\Michael Brown\Desktop\AR\DisruptAR\</UnityProjectDir>
+        <UnityProjectDir>C:\Users\Michael Brown\Documents\ARCompanionApp\</UnityProjectDir>
     </PropertyGroup>
 </Project>

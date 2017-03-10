@@ -10,14 +10,16 @@ public class Interactible : MonoBehaviour
     public AudioClip TargetFeedbackSound;
     private AudioSource audioSource;
 
-	public enum ButtonType {MIC, SHOCK, PURGE, SHIELD};
+	public enum ButtonType {MIC, SHOCK, PURGE, SHIELD, FUSE, DOOR};
 	[Tooltip("Which type of button is this?")]
 	public ButtonType Button;
 
 	// Get communicator and power up manager
 	private PowerUpController pwr;
-	private Communicator comm;		
+	private Communicator comm;	
+	public FuseBox fuseBox;
 	public PowerupManager PowerMan;
+	public Door door;
 
 	private int limitOne, limitTwo, limitThree;
 	private int charge;
@@ -83,56 +85,83 @@ public class Interactible : MonoBehaviour
     }
 
     void OnSelect()
-    {
-        for (int i = 0; i < defaultMaterials.Length; i++)
-        {
-            defaultMaterials[i].SetFloat("_Highlight", .5f);
-        }
-
-        // Play the audioSource feedback when we gaze and select a hologram.
-        if (audioSource != null && !audioSource.isPlaying)
-        {
-            audioSource.Play();
+	{
 		
-        }
+			for (int i = 0; i < defaultMaterials.Length; i++) {
+				defaultMaterials [i].SetFloat ("_Highlight", .5f);
+			}
 
-		charge = (int)PowerMan.getCharge ();
 
-		// Decide what to do when pressed
-		switch (Button) 
-		{
-		case ButtonType.MIC:
-			if (comm.recording)
-				comm.RecordStop ();			
-			else 
-				comm.Record ();
-			break;
+			//if (audioSource != null && !audioSource.isPlaying && Button != ButtonType.FUSE) {
 			
-		case ButtonType.SHOCK:
-			if (PowerMan.getTime(1) < PowerMan.getUnlockTime()) {
-				pwr.ShockButton ();
-			} 
-			PowerMan.usePowerUp (1);
+			//	audioSource.Play ();
+			//
+			//}
 			
-			break;
+
+			charge = (int)PowerMan.getCharge ();
+
+			// Decide what to do when pressed
+			switch (Button) {
+			case ButtonType.MIC:
+				if (comm.recording)
+					comm.RecordStop ();
+				else
+					comm.Record ();
+				break;
 			
-		case ButtonType.PURGE:
-			if (PowerMan.getTime(3) < PowerMan.getUnlockTime()) {
-				pwr.PurgeButton ();
-			} 
-			PowerMan.usePowerUp (3);
+			case ButtonType.SHOCK:
+				if (PowerMan.getTime (1) >= PowerMan.getUnlockTime ()) {
+					pwr.ShockButton ();
+					audioSource.Play ();
+					
+				} 
+				PowerMan.usePowerUp (1);
+				
 			
-			break;
+				break;
 			
-		case ButtonType.SHIELD:
-			if (PowerMan.getTime(2) < PowerMan.getUnlockTime()) {
-				pwr.SheildButton ();
-			} 
-			PowerMan.usePowerUp (2);
+			case ButtonType.PURGE:
+				if (PowerMan.getTime (3) >= PowerMan.getUnlockTime ()) {
+					pwr.PurgeButton ();
+					audioSource.Play ();
+					
+				} 
+				PowerMan.usePowerUp (3);
 			
-			break;
+				break;
+			
+			case ButtonType.SHIELD:
+				if (PowerMan.getTime (2) >= PowerMan.getUnlockTime ()) {
+					pwr.SheildButton ();
+					audioSource.Play ();
+					
+				} 
+				PowerMan.usePowerUp (2);
+
+				break;
+
+			case ButtonType.DOOR:
+				door.useDoor ();
+				break;
+			
+			}
+		
+	
+		if (fuseBox.getState () == FuseBox.FuseState.broken) {
+			if (Button == ButtonType.FUSE) {
+				fuseBox.fuseFix ();
+				audioSource.Play ();
+			}
+		} else {
 		}
+			
 
-        this.SendMessage("PerformTagAlong");
+		
+
+			
+		this.SendMessage ("PerformTagAlong");
+	
+
     }
 }

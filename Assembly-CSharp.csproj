@@ -450,6 +450,8 @@
      <Compile Include="Assets\Scripts\Azure\DataModels\Highscore.cs" />
      <Compile Include="Assets\Scripts\Azure\DataModels\Message.cs" />
      <Compile Include="Assets\Scripts\Azure\DataModels\SpawnFlag.cs" />
+     <Compile Include="Assets\Scripts\FuseBox\Door.cs" />
+     <Compile Include="Assets\Scripts\FuseBox\FuseBox.cs" />
      <Compile Include="Assets\Scripts\Interaction Handling\DismissOnSelect.cs" />
      <Compile Include="Assets\Scripts\Interaction Handling\ExpandModel.cs" />
      <Compile Include="Assets\Scripts\Interaction Handling\GazeCharge.cs" />

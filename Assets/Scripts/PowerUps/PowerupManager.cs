@@ -17,6 +17,7 @@ public class PowerupManager : MonoBehaviour {
 	public float unlockTime;
 	private int unlockID;
 	private int useID;
+	public FuseBox fuseBox;
 
 	// Use this for initialization
 	void Start () {
@@ -30,47 +31,60 @@ public class PowerupManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (unlockingPowerUP) {
-			//increment timer waiting for powerup
-			cooldowns [unlockID - 1] += Time.deltaTime;
+		//if the fusebox is working
+		if (fuseBox.getState() == FuseBox.FuseState.working) {
 
-			if (cooldowns [unlockID - 1] > unlockTime) {
+			//flagged that powerup is unlocking
+			if (unlockingPowerUP) {
+				//increment timer waiting for powerup
+				cooldowns [unlockID - 1] += Time.deltaTime;
 
-				//power up has finished unlocking and player can charge again
-				unlockingPowerUP = false;
+				if (cooldowns [unlockID - 1] > unlockTime) {
 
-				//unlock correct powerup
-				unlocks [unlockID - 1] = true;
+					//power up has finished unlocking and player can charge again
+					unlockingPowerUP = false;
+
+					//unlock correct powerup
+					unlocks [unlockID - 1] = true;
+				}
+			} else {
+
+				//not currently unlocking but powerup is being used
+				if (usingPowerUp) {
+					//reset timer
+					cooldowns [useID - 1] = 0;
+					usingPowerUp = false;
+				}
+
+				//manage timers for cooldowns after use
+				for (int i = 1; i < 4; i++) {
+					if (isUnlocked (i) && getTime (i) < unlockTime) {
+						cooldowns [i - 1] += Time.deltaTime;
+					}
+				}
+
 			}
-		} 
-		else {
-			if (usingPowerUp){
-				//reset timer
-				cooldowns[useID-1] = 0;
-				usingPowerUp = false;
-			}
-		}
 
-		for (int i = 1; i < 4; i++) {
-			if (isUnlocked(i) && getTime(i) < unlockTime) {
-				cooldowns [i-1] += Time.deltaTime;
-			}
+
 		}
 
 
 	}
 
 	public void charging(){
-		
-		//if a power up isnt being unlocked and charge is lower than 100% increase charge
-		//time modifier adjusts how fast it charges (timeModifier charge% increase per second);
-		if (!unlockingPowerUP) {
-			if (charge < 100.0f) {
-				charge += Time.deltaTime * timeModifier;
-			}
-			//deals error showing percentage above 100
-			if (charge > 100.0f) {
-				charge = 100.0f;
+
+		//if the fuse box isnt broken
+		if (fuseBox.getState () == FuseBox.FuseState.working) {
+			//if a power up isnt being unlocked and charge is lower than 100% increase charge
+			//time modifier adjusts how fast it charges (timeModifier charge% increase per second);
+			if (!unlockingPowerUP) {
+				if (charge < 100.0f) {
+					charge += Time.deltaTime * timeModifier;
+				}
+				//deals error showing percentage above 100
+				if (charge > 100.0f) {
+					charge = 100.0f;
+				}
 			}
 		}
 
@@ -82,18 +96,23 @@ public class PowerupManager : MonoBehaviour {
 		
 	public void usePowerUp( int powerUpID ){
 			
-		//check for enough charge and that another ability isnt currently being unlocked
-		if (charge >= getPowerLimit (powerUpID) && !unlockingPowerUP && isUnlocked(powerUpID) == false) {
+		//check fusebox is working
+		if (fuseBox.getState () == FuseBox.FuseState.working) {
+			//UNLOCK ABILITY
+			//check for enough charge and that another ability isnt currently being unlocked
+			if (charge >= getPowerLimit (powerUpID) && !unlockingPowerUP && isUnlocked (powerUpID) == false) {
 
-			//set unlocking to true
-			unlockingPowerUP = true;
-			unlockID = powerUpID;
+				//set unlocking to true
+				unlockingPowerUP = true;
+				unlockID = powerUpID;
 
-		}
+			}
 
-		if(isUnlocked(powerUpID) && usingPowerUp == false && getTime(powerUpID) > unlockTime){
-			usingPowerUp = true;
-			useID = powerUpID;
+			//USE ABILITY
+			else if (isUnlocked (powerUpID) && usingPowerUp == false && getTime (powerUpID) > unlockTime) {
+				usingPowerUp = true;
+				useID = powerUpID;
+			}
 		}
 			
 	}
@@ -101,6 +120,8 @@ public class PowerupManager : MonoBehaviour {
 	//return the power limit for selected power up
 	public int getPowerLimit(int limitID){
 		switch (limitID) {
+		case 0:
+			break;
 		case 1:
 			return PowerLimitOne;
 			break;
@@ -119,11 +140,15 @@ public class PowerupManager : MonoBehaviour {
 		return unlocks [powerUpID - 1];
 	}
 
+	//returns current cool down 
 	public float getTime(int powerUpID){
 		return cooldowns[powerUpID-1];
 	}
 
+	//return time limit on cooldown
 	public float getUnlockTime(){
 		return unlockTime;
 	}
+
+
 }
