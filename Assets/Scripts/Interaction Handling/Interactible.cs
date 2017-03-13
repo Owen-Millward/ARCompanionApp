@@ -10,6 +10,8 @@ public class Interactible : MonoBehaviour
     public AudioClip TargetFeedbackSound;
     private AudioSource audioSource;
 
+	public AudioClip[] AudioClips;
+
 	public enum ButtonType {MIC, SHOCK, PURGE, SHIELD, FUSE, DOOR};
 	[Tooltip("Which type of button is this?")]
 	public ButtonType Button;
@@ -20,10 +22,12 @@ public class Interactible : MonoBehaviour
 	public FuseBox fuseBox;
 	public PowerupManager PowerMan;
 	public Door door;
+	private bool unlocked = false;
 
 	private int limitOne, limitTwo, limitThree;
 	private int charge;
     private Material[] defaultMaterials;
+
 
     void Start()
     {
@@ -68,84 +72,153 @@ public class Interactible : MonoBehaviour
         }
     }
 
-    void GazeEntered()
-    {
-        for (int i = 0; i < defaultMaterials.Length; i++)
-        {
-            defaultMaterials[i].SetFloat("_Highlight", .25f);
-        }
-    }
-
-    void GazeExited()
-    {
-        for (int i = 0; i < defaultMaterials.Length; i++)
-        {
-            defaultMaterials[i].SetFloat("_Highlight", 0f);
-        }
-    }
+	void Update(){
+		//IF THE FUSE BLOWS WHILE RECORDING
+		if (fuseBox.getState () == FuseBox.FuseState.broken) {
+			if (comm.recording) {
+				audioSource.clip = AudioClips [1];
+				audioSource.Play ();
+				comm.RecordStop ();
+			}
+		}
+	}
 
     void OnSelect()
 	{
 		
-			for (int i = 0; i < defaultMaterials.Length; i++) {
-				defaultMaterials [i].SetFloat ("_Highlight", .5f);
-			}
-
-
-			//if (audioSource != null && !audioSource.isPlaying && Button != ButtonType.FUSE) {
-			
-			//	audioSource.Play ();
-			//
-			//}
+		for (int i = 0; i < defaultMaterials.Length; i++) {
+			defaultMaterials [i].SetFloat ("_Highlight", .5f);
+		}
 			
 
-			charge = (int)PowerMan.getCharge ();
+		charge = (int)PowerMan.getCharge ();
 
-			// Decide what to do when pressed
-			switch (Button) {
+		// Decide what to do when pressed
+		switch (Button) {
+			
+			//MICROPHONE BUTTON
 			case ButtonType.MIC:
-				if (comm.recording)
-					comm.RecordStop ();
-				else
-					comm.Record ();
-				break;
-			
-			case ButtonType.SHOCK:
-				if (PowerMan.getTime (1) >= PowerMan.getUnlockTime ()) {
-					pwr.ShockButton ();
-					audioSource.Play ();
-					
-				} 
-				PowerMan.usePowerUp (1);
 				
-			
-				break;
-			
-			case ButtonType.PURGE:
-				if (PowerMan.getTime (3) >= PowerMan.getUnlockTime ()) {
-					pwr.PurgeButton ();
+				//IF THE FUSE IS BROKEN 
+				if (fuseBox.getState () == FuseBox.FuseState.broken) {
+					audioSource.clip = AudioClips [2];
 					audioSource.Play ();
-					
 				} 
-				PowerMan.usePowerUp (3);
-			
-				break;
-			
-			case ButtonType.SHIELD:
-				if (PowerMan.getTime (2) >= PowerMan.getUnlockTime ()) {
-					pwr.SheildButton ();
-					audioSource.Play ();
-					
-				} 
-				PowerMan.usePowerUp (2);
+				//IF THE FUSE IS WORKING
+				else {
+					//IF RECORDING
+					if (comm.recording) {
+						audioSource.clip = AudioClips [1];
+						audioSource.Play ();
+						comm.RecordStop ();
+					//IF NOT RECORDING
+					} else {
+						audioSource.clip = AudioClips [0];
+						audioSource.Play ();
+						comm.Record ();
+					}
+				}
 
+				break;
+
+			//SHOCKWAVE BUTTON 
+			case ButtonType.SHOCK:
+				
+				//IF FUSE IS BROKEN
+				if (fuseBox.getState () == FuseBox.FuseState.broken) {
+					audioSource.clip = AudioClips [1];
+					audioSource.Play ();
+				}
+				//IF FUSE IS WORKING
+				else if (fuseBox.getState () == FuseBox.FuseState.working) {
+					//POWERUP IS OFF COOLDOWN
+					if (PowerMan.getTime (1) >= PowerMan.getUnlockTime () && PowerMan.unlockingPowerUP == false) {
+						pwr.ShockButton ();
+						audioSource.clip = AudioClips [0];
+						audioSource.Play ();
+						
+					//POWER UP IS ON COOLDOWN		
+					} else {
+						if (!unlocked) {
+							audioSource.clip = AudioClips [0];
+							unlocked = true;
+						} else {
+							audioSource.clip = AudioClips [1];
+						}
+						audioSource.Play ();
+					}
+
+					PowerMan.usePowerUp (1);
+				}
+				break;
+				
+			case ButtonType.PURGE:
+	
+			//IF FUSE IS BROKEN
+			if (fuseBox.getState () == FuseBox.FuseState.broken) {
+				audioSource.clip = AudioClips [1];
+				audioSource.Play ();
+			}
+			//IF FUSE IS WORKING
+			else if (fuseBox.getState () == FuseBox.FuseState.working) {
+				//POWERUP IS OFF COOLDOWN
+				if (PowerMan.getTime (3) >= PowerMan.getUnlockTime () && PowerMan.unlockingPowerUP == false) {
+					pwr.PurgeButton ();
+					audioSource.clip = AudioClips [0];
+					audioSource.Play ();
+
+					//POWER UP IS ON COOLDOWN		
+				} else {
+					if (!unlocked) {
+						audioSource.clip = AudioClips [0];
+						unlocked = true;
+					} else {
+						audioSource.clip = AudioClips [1];
+					}
+					audioSource.Play ();
+				}
+
+				PowerMan.usePowerUp (3);
+			}
+				break;
+				
+			case ButtonType.SHIELD:
+		
+			//IF FUSE IS BROKEN
+			if (fuseBox.getState () == FuseBox.FuseState.broken) {
+				audioSource.clip = AudioClips [1];
+				audioSource.Play ();
+			}
+			//IF FUSE IS WORKING
+			else if (fuseBox.getState () == FuseBox.FuseState.working) {
+				//POWERUP IS OFF COOLDOWN
+				if (PowerMan.getTime (2) >= PowerMan.getUnlockTime () && PowerMan.unlockingPowerUP == false) {
+					pwr.SheildButton ();
+					audioSource.clip = AudioClips [0];
+					audioSource.Play ();
+
+					//POWER UP IS ON COOLDOWN		
+				} else {
+					if (!unlocked) {
+						audioSource.clip = AudioClips [0];
+						unlocked = true;
+					} else {
+						audioSource.clip = AudioClips [1];
+					}
+					audioSource.Play ();
+				}
+
+				PowerMan.usePowerUp (2);
+			}
 				break;
 
 			case ButtonType.DOOR:
+
 				door.useDoor ();
+				
 				break;
 			
-			}
+		}
 		
 	
 		if (fuseBox.getState () == FuseBox.FuseState.broken) {
@@ -153,7 +226,8 @@ public class Interactible : MonoBehaviour
 				fuseBox.fuseFix ();
 				audioSource.Play ();
 			}
-		} else {
+		} 
+		else {
 		}
 			
 

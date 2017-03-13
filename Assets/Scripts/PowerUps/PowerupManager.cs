@@ -8,6 +8,7 @@ public class PowerupManager : MonoBehaviour {
 	public bool unlockingPowerUP;
 	public bool usingPowerUp;
 	public bool[] unlocks;
+	public bool[] unlockSoundPlayed;
 	public int PowerLimitOne;
 	public int PowerLimitTwo;
 	public int PowerLimitThree;
@@ -18,8 +19,12 @@ public class PowerupManager : MonoBehaviour {
 	private int unlockID;
 	private int useID;
 	public FuseBox fuseBox;
+	public AudioClip[] audioClips;
+	private AudioSource audioSource;
 
-	// Use this for initialization
+	/// <summary>
+	/// Start the game with no power ups being used or unlocked and all powerups being set to locked.
+	/// </summary>
 	void Start () {
 		unlockingPowerUP = false;
 		usingPowerUp = false;
@@ -27,18 +32,25 @@ public class PowerupManager : MonoBehaviour {
 			unlocks [i] = false;
 		}
 	}
-	
-	// Update is called once per frame
+
+
 	void Update () {
 
 		//if the fusebox is working
 		if (fuseBox.getState() == FuseBox.FuseState.working) {
+
+			//Play sound when enough charge has been reached to unlock a powerup
+			if ((int)charge == getPowerLimit (1) ) {
+				audioSource.clip = audioClips [1];
+				audioSource.Play ();
+			}
 
 			//flagged that powerup is unlocking
 			if (unlockingPowerUP) {
 				//increment timer waiting for powerup
 				cooldowns [unlockID - 1] += Time.deltaTime;
 
+				//when unlocked
 				if (cooldowns [unlockID - 1] > unlockTime) {
 
 					//power up has finished unlocking and player can charge again
@@ -46,6 +58,8 @@ public class PowerupManager : MonoBehaviour {
 
 					//unlock correct powerup
 					unlocks [unlockID - 1] = true;
+
+
 				}
 			} else {
 
@@ -67,6 +81,7 @@ public class PowerupManager : MonoBehaviour {
 
 
 		}
+			
 
 
 	}
@@ -84,6 +99,8 @@ public class PowerupManager : MonoBehaviour {
 				//deals error showing percentage above 100
 				if (charge > 100.0f) {
 					charge = 100.0f;
+					audioSource.clip = audioClips [1];
+					audioSource.Play ();
 				}
 			}
 		}
@@ -96,8 +113,6 @@ public class PowerupManager : MonoBehaviour {
 		
 	public void usePowerUp( int powerUpID ){
 			
-		//check fusebox is working
-		if (fuseBox.getState () == FuseBox.FuseState.working) {
 			//UNLOCK ABILITY
 			//check for enough charge and that another ability isnt currently being unlocked
 			if (charge >= getPowerLimit (powerUpID) && !unlockingPowerUP && isUnlocked (powerUpID) == false) {
@@ -113,8 +128,6 @@ public class PowerupManager : MonoBehaviour {
 				usingPowerUp = true;
 				useID = powerUpID;
 			}
-		}
-			
 	}
 
 	//return the power limit for selected power up

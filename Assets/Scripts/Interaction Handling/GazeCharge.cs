@@ -8,20 +8,23 @@ public class GazeCharge : MonoBehaviour {
 	public PowerupManager PowerMan;
 	public FuseBox fuseBox;
 
-	// Use this for initialization
 	void Start () {
-		//GetComponent<Renderer> ().material.color = Color.red;
 		gazing = false;
 	}
-	
-	// Update is called once per frame
+
+	/// <summary>
+	/// Handles Charging
+	/// </summary>
 	void Update () {
+
+		//If the player is looking at the terminal charge 
 		if (gazing == true) {
 			PowerMan.charging ();
 		}
 	
 
 		if (GetComponent<TextMesh> () != null) {
+			
 			//if working change color to percent charge and display charge 
 			if (fuseBox.getState () == FuseBox.FuseState.working) {
 				GetComponent<Renderer> ().material.color = new Color (1.0f-(PowerMan.getCharge()/100.0f), PowerMan.getCharge()/100.0f, 0);
@@ -33,19 +36,24 @@ public class GazeCharge : MonoBehaviour {
 				GetComponent<TextMesh> ().text = "OFFLINE";
 				GetComponent<TextMesh> ().color = Color.red;
 			}
+
 		}
 	}
 
+	/// <summary>
+	/// Response to GazeEntered Message
+	/// </summary>
 	void GazeEntered()
 	{
-		//GetComponent<Renderer> ().material.color = Color.green;
 		gazing = true;
 	}
 
+	/// <summary>
+	/// Response to GazeExited Message
+	/// </summary>
 	void GazeExited()
 	{
 		gazing = false;
-		//GetComponent<Renderer> ().material.color = Color.red;
 	}
 
 }

@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33000014107311964}
   - component: {fileID: 23000012206613826}
   - component: {fileID: 95000011471433578}
+  - component: {fileID: 65919981299603604}
+  - component: {fileID: 65737059076895536}
   m_Layer: 0
   m_Name: Regular Terminal
   m_TagString: Untagged
@@ -69,8 +71,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010078157216}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.46, y: -0.044, z: 2}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.084, y: -0.044, z: 2.004}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4972923436548284}
@@ -188,7 +190,31 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.1, z: 0.05}
-  m_Center: {x: 0.038, y: 0, z: -0.03}
+  m_Center: {x: 0.038, y: 0, z: -0.01}
+--- !u!65 &65737059076895536
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010078157216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.19704624, y: 0.14034025, z: 0.0125}
+  m_Center: {x: 0, y: 0.000000007450581, z: -0.045}
+--- !u!65 &65919981299603604
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010078157216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.19704624, y: 0.1, z: 0.10514018}
+  m_Center: {x: 0, y: -0.02, z: 0.0000000018626451}
 --- !u!95 &95000011471433578
 Animator:
   serializedVersion: 3
@@ -239,3 +265,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerMan: {fileID: 0}
+  fuseBox: {fileID: 0}

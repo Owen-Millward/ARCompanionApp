@@ -10,33 +10,40 @@ public class Door : MonoBehaviour {
 	private float rotationValue;
 	public float rotationTime;
 
-	// Use this for initialization
 	void Start () {
-		
+		//Start the game with the door closed 
 		doorState = DoorState.closed;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		rotateDoor ();
 	}
 
+	/// <summary>
+	/// Checks the current DoorState and rotates the door accordingly.
+	/// </summary>
 	private void rotateDoor(){
-		Debug.Log (transform.rotation.eulerAngles.y);
+
+		//Closed door
 		if (doorState == DoorState.closed) {
 			if (transform.rotation.eulerAngles.y < 0|| transform.rotation.eulerAngles.y > 230) {
 
 			transform.Rotate (new Vector3 (0, rotationTime * 120 * Time.deltaTime , 0));
 			}
 		}
+		//Open door
 		if (doorState == DoorState.open) {
 			if (transform.rotation.eulerAngles.y < 10  || transform.rotation.eulerAngles.y > 240) {
 
 				transform.Rotate (new Vector3 (0,-rotationTime * 120 * Time.deltaTime , 0));
 			}
 		}
+			
 	}
 
+	/// <summary>
+	/// Changes the DoorState to open or closed.
+	/// </summary>
 	public void useDoor(){
 		
 		if (doorState == DoorState.open) {

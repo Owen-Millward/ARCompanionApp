@@ -143,7 +143,7 @@ public class Communicator : MonoBehaviour
             PlayButton.gameObject.SetActive(false);
             PlayStopButton.gameObject.SetActive(true);
 
-			voiceInputAudio.Play();
+			//voiceInputAudio.Play();
         }
     }
 
@@ -154,7 +154,7 @@ public class Communicator : MonoBehaviour
             PlayStopButton.gameObject.SetActive(false);
             PlayButton.gameObject.SetActive(true);
 
-			voiceInputAudio.Stop();
+			voiceInputAudio.Stop();	
         }
     }
 
@@ -174,7 +174,7 @@ public class Communicator : MonoBehaviour
       
         MicIcon.SetActive(enabled);
 
-        soundToPlay.Play();
+        //soundToPlay.Play();
     }
 
 	// Audio/REST Functions

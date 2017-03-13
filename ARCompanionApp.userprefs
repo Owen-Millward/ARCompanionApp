@@ -1,14 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FuseBox\FuseManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Azure\Communicator.cs">
     <Files>
-      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PowerUps\PowerUpButton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PowerUps\PowerUpController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="196" Column="26" />
       <File FileName="Assets\Scripts\PowerUps\PowerCostText.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PowerUps\UnlockBar.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FuseBox\FuseManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="130" Column="5" />
+      <File FileName="Assets\Scripts\Interaction Handling\GestureAction.cs" Line="1" Column="1" />
+      <File FileName="Assets\External Libraries\TSTableView\TableViewCell.cs" Line="1" Column="1" />
+      <File FileName="Assets\External Libraries\TSTableView\ITableViewDataSource.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Azure\Communicator.cs" Line="157" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
