@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 1375}
   - component: {fileID: 1376}
   - component: {fileID: 172}
+  - component: {fileID: 171}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -50,6 +51,86 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!82 &171
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 170}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,23 +142,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61b36efd549fe141b36ce6e2c74ff3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockingPowerUP: 0
-  usingPowerUp: 0
-  unlocks: 000000
-  unlockSoundPlayed: 000000
-  PowerLimitOne: 10
-  PowerLimitTwo: 20
-  PowerLimitThree: 30
   timeModifier: 1
-  cooldowns:
-  - 0
-  - 0
-  - 0
-  unlockTime: 5
+  powerUps:
+  - {fileID: 114792768418014782, guid: dbe816c1f590d38439f73f70540284e8, type: 2}
+  - {fileID: 114839724061456172, guid: 51fc79606b2935f4991510e648f0dd2c, type: 2}
+  - {fileID: 114190714013760304, guid: 18f79e4bbfb06694aacb51374970bb50, type: 2}
   fuseBox: {fileID: 876848674}
   audioClips:
   - {fileID: 8300000, guid: b94444cdb1c37c449bf4f4da5aff3fa0, type: 3}
   - {fileID: 8300000, guid: de317979b20f3434eb2a2d3077d9c2ec, type: 3}
+  audioSource: {fileID: 171}
 --- !u!1 &334
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,82 +724,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114547023126012692, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: fuseBox
-      value: 
-      objectReference: {fileID: 876848674}
-    - target: {fileID: 114547023126012692, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114547023126012692, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: door
-      value: 
-      objectReference: {fileID: 780214140}
-    - target: {fileID: 114063660549304322, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114114041326668676, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114419302609539876, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114697776741463478, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114508462183315402, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114918323358601002, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: fuseBox
-      value: 
-      objectReference: {fileID: 876848674}
-    - target: {fileID: 114918323358601002, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114918323358601002, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: door
-      value: 
-      objectReference: {fileID: 780214140}
-    - target: {fileID: 114009805855506912, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114441945172546762, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: fuseBox
-      value: 
-      objectReference: {fileID: 876848674}
-    - target: {fileID: 114441945172546762, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: PowerMan
-      value: 
-      objectReference: {fileID: 172}
-    - target: {fileID: 114441945172546762, guid: 2ce4af93be121b244aafe947b6dec6c0,
-        type: 2}
-      propertyPath: door
-      value: 
-      objectReference: {fileID: 780214140}
-    - target: {fileID: 114644355999695156, guid: 2ce4af93be121b244aafe947b6dec6c0,
+    - target: {fileID: 114632459655422608, guid: 2ce4af93be121b244aafe947b6dec6c0,
         type: 2}
       propertyPath: PowerMan
       value: 
@@ -735,11 +734,86 @@ Prefab:
       propertyPath: PowerMan
       value: 
       objectReference: {fileID: 172}
-    - target: {fileID: 114632459655422608, guid: 2ce4af93be121b244aafe947b6dec6c0,
+    - target: {fileID: 114644355999695156, guid: 2ce4af93be121b244aafe947b6dec6c0,
         type: 2}
       propertyPath: PowerMan
       value: 
       objectReference: {fileID: 172}
+    - target: {fileID: 114441945172546762, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: fuseBox
+      value: 
+      objectReference: {fileID: 876848674}
+    - target: {fileID: 114441945172546762, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114441945172546762, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 780214140}
+    - target: {fileID: 114009805855506912, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114918323358601002, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: fuseBox
+      value: 
+      objectReference: {fileID: 876848674}
+    - target: {fileID: 114918323358601002, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114918323358601002, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 780214140}
+    - target: {fileID: 114508462183315402, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114697776741463478, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114419302609539876, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114114041326668676, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114063660549304322, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114547023126012692, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: fuseBox
+      value: 
+      objectReference: {fileID: 876848674}
+    - target: {fileID: 114547023126012692, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: PowerMan
+      value: 
+      objectReference: {fileID: 172}
+    - target: {fileID: 114547023126012692, guid: 2ce4af93be121b244aafe947b6dec6c0,
+        type: 2}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 780214140}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ce4af93be121b244aafe947b6dec6c0, type: 2}
   m_IsPrefabParent: 0
@@ -797,6 +871,11 @@ Prefab:
       propertyPath: PowerMan
       value: 
       objectReference: {fileID: 172}
+    - target: {fileID: 114380443126005190, guid: 366c529e3957aa046bb19750078e8626,
+        type: 2}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 780214140}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 366c529e3957aa046bb19750078e8626, type: 2}
   m_IsPrefabParent: 0

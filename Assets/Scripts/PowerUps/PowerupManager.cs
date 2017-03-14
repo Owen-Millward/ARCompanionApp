@@ -4,164 +4,161 @@ using UnityEngine;
 
 public class PowerupManager : MonoBehaviour {
 
-	private float charge = 0.0f;
-	public bool unlockingPowerUP;
-	public bool usingPowerUp;
-	public bool[] unlocks;
-	public bool[] unlockSoundPlayed;
-	public int PowerLimitOne;
-	public int PowerLimitTwo;
-	public int PowerLimitThree;
+	//GamePlay
+	private float charge = 0.0f;								//Current Charge %
+	[Tooltip("Charge % increase per second")]
 	public float timeModifier;
-	private float time;
-	public float[] cooldowns;
-	public float unlockTime;
-	private int unlockID;
-	private int useID;
-	public FuseBox fuseBox;
-	public AudioClip[] audioClips;
-	private AudioSource audioSource;
+
+	public enum TerminalState{Idle, Unlocking, UsingPowerUp};	//States for PowerUpTerminal
+	private TerminalState terminalState;						//State of PowerUpTerminal
+
+	//PowerUps
+	private int unlockID;		//PowerUp being unlocked
+	private int useID;			//PowerUp being Used
+
+	public PowerUp[] powerUps;	//Array of power ups
+
+	//FuseBox
+	[Tooltip("FuseBox(handle)")]
+	public FuseBox fuseBox;				//Holds game state working or broken
+
+	//Audio
+	[Tooltip("Audiofiles associated with this object")]
+	public AudioClip[] audioClips;		//List of audio files for this object
+	[Tooltip("AudioSource (this)")]
+	public AudioSource audioSource;	//Audio source for playing clips
 
 	/// <summary>
-	/// Start the game with no power ups being used or unlocked and all powerups being set to locked.
+	/// Start the game with terminal state in idle and all powerups being initialised
 	/// </summary>
 	void Start () {
-		unlockingPowerUP = false;
-		usingPowerUp = false;
-		for (int i = 0; i < 3; i++) {
-			unlocks [i] = false;
+
+		terminalState = TerminalState.Idle;
+
+		if (audioSource == null) {
+			audioSource = GetComponent<AudioSource> ();
 		}
 	}
 
-
+	/// <summary>
+	/// Powerup gameplay management
+	/// 
+	/// Handle unlocking powerups
+	/// Using powerups
+	/// Cooldowns for powerups
+	/// 
+	/// </summary>
 	void Update () {
 
 		//if the fusebox is working
 		if (fuseBox.getState() == FuseBox.FuseState.working) {
 
 			//Play sound when enough charge has been reached to unlock a powerup
-			if ((int)charge == getPowerLimit (1) ) {
-				audioSource.clip = audioClips [1];
-				audioSource.Play ();
-			}
 
 			//flagged that powerup is unlocking
-			if (unlockingPowerUP) {
+			if (terminalState == TerminalState.Unlocking) {
+				
 				//increment timer waiting for powerup
-				cooldowns [unlockID - 1] += Time.deltaTime;
+				powerUps[unlockID].coolDown();
 
 				//when unlocked
-				if (cooldowns [unlockID - 1] > unlockTime) {
+				if (powerUps[unlockID].OnCoolDown() == false) {
 
 					//power up has finished unlocking and player can charge again
-					unlockingPowerUP = false;
+					terminalState = TerminalState.Idle;
 
 					//unlock correct powerup
-					unlocks [unlockID - 1] = true;
-
-
+					powerUps[unlockID].Unlock();
 				}
-			} else {
+			}
 
+			else {
+				
 				//not currently unlocking but powerup is being used
-				if (usingPowerUp) {
+				if (terminalState == TerminalState.UsingPowerUp) {
 					//reset timer
-					cooldowns [useID - 1] = 0;
-					usingPowerUp = false;
+
+					powerUps [unlockID].resetCoolDown ();
+					terminalState = TerminalState.Idle;
 				}
 
 				//manage timers for cooldowns after use
-				for (int i = 1; i < 4; i++) {
-					if (isUnlocked (i) && getTime (i) < unlockTime) {
-						cooldowns [i - 1] += Time.deltaTime;
+				for (int i = 0; i < 3; i++) {
+					
+					if (powerUps[i].isLocked() == false && powerUps[i].OnCoolDown()) {
+						
+						powerUps [i].coolDown ();
 					}
 				}
-
 			}
-
-
 		}
-			
-
-
 	}
 
+	/// <summary>
+	/// Increase charge % over time.
+	/// </summary>
 	public void charging(){
 
 		//if the fuse box isnt broken
 		if (fuseBox.getState () == FuseBox.FuseState.working) {
+			
 			//if a power up isnt being unlocked and charge is lower than 100% increase charge
 			//time modifier adjusts how fast it charges (timeModifier charge% increase per second);
-			if (!unlockingPowerUP) {
+			if (terminalState == TerminalState.Idle) {
+				
 				if (charge < 100.0f) {
+					
 					charge += Time.deltaTime * timeModifier;
 				}
+
 				//deals error showing percentage above 100
 				if (charge > 100.0f) {
+					
 					charge = 100.0f;
 					audioSource.clip = audioClips [1];
 					audioSource.Play ();
 				}
 			}
 		}
-
 	}
 
+	/// <summary>
+	/// Gets the current charge %.
+	/// </summary>
+	/// <returns>The  current charge %.</returns>
 	public float getCharge(){
+		
 		return charge;
 	}
-		
+
+	/// <summary>
+	/// Uses or Unlocks a power-up.
+	/// </summary>
+	/// <param name="powerUpID">The ID of the power-up being used.</param>
 	public void usePowerUp( int powerUpID ){
 			
-			//UNLOCK ABILITY
-			//check for enough charge and that another ability isnt currently being unlocked
-			if (charge >= getPowerLimit (powerUpID) && !unlockingPowerUP && isUnlocked (powerUpID) == false) {
+		//UNLOCK ABILITY
+		//check for enough charge and that another ability isnt currently being unlocked
+		if (charge >= powerUps[powerUpID].getChargeRequired() && terminalState == TerminalState.Idle && powerUps[powerUpID].isLocked()) {
 
-				//set unlocking to true
-				unlockingPowerUP = true;
-				unlockID = powerUpID;
-
-			}
-
-			//USE ABILITY
-			else if (isUnlocked (powerUpID) && usingPowerUp == false && getTime (powerUpID) > unlockTime) {
-				usingPowerUp = true;
-				useID = powerUpID;
-			}
-	}
-
-	//return the power limit for selected power up
-	public int getPowerLimit(int limitID){
-		switch (limitID) {
-		case 0:
-			break;
-		case 1:
-			return PowerLimitOne;
-			break;
-		case 2: 
-			return PowerLimitTwo;
-			break;
-		case 3:
-			return PowerLimitThree;
-			break;
+			//set unlocking to true
+			terminalState = TerminalState.Unlocking;
+			unlockID = powerUpID;
 		}
-		return 0;
-	}
 
-	//return if power up is unlocked
-	public bool isUnlocked(int powerUpID){
-		return unlocks [powerUpID - 1];
+		//USE ABILITY
+		else if (powerUps[powerUpID].isLocked() == false && terminalState == TerminalState.Idle && powerUps[powerUpID].OnCoolDown() == false) {
+			terminalState = TerminalState.UsingPowerUp;
+			useID = powerUpID;
+		}
 	}
-
-	//returns current cool down 
-	public float getTime(int powerUpID){
-		return cooldowns[powerUpID-1];
+		
+	/// <summary>
+	/// Gets the state of the terminal.
+	/// </summary>
+	/// <returns>The terminal state.</returns>
+	public TerminalState getTerminalState(){
+		return terminalState;
 	}
-
-	//return time limit on cooldown
-	public float getUnlockTime(){
-		return unlockTime;
-	}
-
 
 }

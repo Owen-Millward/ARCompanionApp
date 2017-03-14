@@ -5,7 +5,9 @@ using UnityEngine;
 public class GazeCharge : MonoBehaviour {
 
 	private bool gazing;
+	[Tooltip("PowerUpManager (Managers)")]
 	public PowerupManager PowerMan;
+	[Tooltip("FuseBox (Handle)")]
 	public FuseBox fuseBox;
 
 	void Start () {

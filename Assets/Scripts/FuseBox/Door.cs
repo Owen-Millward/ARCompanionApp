@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class Door : MonoBehaviour {
 
-	public enum DoorState {open,closed};
-	public DoorState doorState;
+	//Door states
+	public enum DoorState {open,closed};	//possible door states
+	[Tooltip("Current state of the door ( Open or Closed)")]		
+	public DoorState doorState;				//current state of the door
 
-	private float rotationValue;
-	public float rotationTime;
+	//Rotation management variables	
+	[Tooltip("How long will it take to rotate?")]
+	public float rotationTime;	//how long does it take to rotate?
 
 	void Start () {
 		//Start the game with the door closed 
 		doorState = DoorState.closed;
 	}
 
+	/// <summary>
+	/// Update the door
+	/// </summary>
 	void Update () {
 		rotateDoor ();
 	}

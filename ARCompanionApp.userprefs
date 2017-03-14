@@ -1,14 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Azure\Communicator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Interaction Handling\Interactible.cs">
     <Files>
-      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="196" Column="26" />
-      <File FileName="Assets\Scripts\PowerUps\PowerCostText.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="130" Column="5" />
-      <File FileName="Assets\Scripts\Interaction Handling\GestureAction.cs" Line="1" Column="1" />
-      <File FileName="Assets\External Libraries\TSTableView\TableViewCell.cs" Line="1" Column="1" />
-      <File FileName="Assets\External Libraries\TSTableView\ITableViewDataSource.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Azure\Communicator.cs" Line="157" Column="28" />
+      <File FileName="Assets\Scripts\Interaction Handling\InteractibleManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interaction Handling\MicrophoneManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interaction Handling\PowerUp.cs" Line="11" Column="59" />
+      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="29" Column="1" />
+      <File FileName="Assets\Scripts\PowerUps\UnlockBar.cs" Line="12" Column="40" />
+      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="18" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

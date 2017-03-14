@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class FuseBox : MonoBehaviour {
 
+	//associated objects
+	[Tooltip("PowerUpManager (Managers)")]
 	public PowerupManager PowerMan;
-	public int multiple;
-	private int lastRoll, currentRoll;
-	public enum FuseState { working, broken };
-	public FuseState fuseState; 
-	private int targetRotation; 
-	public float rotationTime;
+
+	//States
+	public enum FuseState { working, broken };	//possible fuse states
+	[Tooltip("Current fuse state")]
+	public FuseState fuseState; 				//current fuse state
+
+	//Rolls
+	private int lastRoll; 		//Last charge percent a roll was made on
+	private int currentRoll;	//Current Charge percent
+	[Tooltip("Rolls should be made when charge is a multiple of this")]
+	public int multiple;		//At what multiple should a roll take place
+
+	//handle Rotation
+	private int targetRotation;	//Where is the handle rotating too 
+	[Tooltip("How long it takes to rotate the handle")]
+	public float rotationTime;	//how long to rotate
 		
 
 	/// <summary>

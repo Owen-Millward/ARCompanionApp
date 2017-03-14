@@ -5,17 +5,18 @@ using UnityEngine;
 
 public class UnlockBar : MonoBehaviour {
 
-	public Transform LoadingBar;
-	public PowerupManager PowerMan;
-	public int ID;
+	[Tooltip("The Loading bar (this)")]
+	public Transform LoadingBar;		//Loading bar
+	[Tooltip("PowerUpManager (Managers)")]
+	public PowerupManager PowerMan;		//Power up manager
+	[Tooltip("ID of the associated powerup")]
+	public int ID;						//ID of the powerup being represented 
 
-	// Update is called once per frame
+	/// <summary>
+	/// Display the cooldown of a powerup in the form of a filled horizontal bar
+	/// </summary>
 	void Update () {
-		if (PowerMan.getTime (ID) == 0) {
-			LoadingBar.GetComponent<Image> ().fillAmount = 0;
-		} 
-		else {
-			LoadingBar.GetComponent<Image> ().fillAmount = 1.0f * (PowerMan.getTime (ID) / PowerMan.getUnlockTime ());
-		}
+		
+		LoadingBar.GetComponent<Image> ().fillAmount = 1.0f * PowerMan.powerUps[ID].coolDownPercent();
 	}
 }

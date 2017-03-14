@@ -460,6 +460,7 @@
      <Compile Include="Assets\Scripts\Interaction Handling\InteractibleAction.cs" />
      <Compile Include="Assets\Scripts\Interaction Handling\InteractibleManager.cs" />
      <Compile Include="Assets\Scripts\Interaction Handling\MicrophoneManager.cs" />
+     <Compile Include="Assets\Scripts\Interaction Handling\PowerUp.cs" />
      <Compile Include="Assets\Scripts\PowerUps\PowerCostText.cs" />
      <Compile Include="Assets\Scripts\PowerUps\PowerUpButton.cs" />
      <Compile Include="Assets\Scripts\PowerUps\PowerUpController.cs" />

@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class PowerUpButton : MonoBehaviour {
 
-	public int ID;
-	public PowerupManager PowerMan;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+	[Tooltip("ID of the associated powerup")]
+	public int ID;						//Id of the associated powerup
+	[Tooltip("PowerUpManager (Managers)")]
+	public PowerupManager PowerMan;		//power up manager 
 	
-	// Update is called once per frame
+	/// <summary>
+	/// Highlights the image if it is unlocked
+	/// </summary>
 	void Update () {
-
-		//if the powerup is unlocked highlight image 
-		if (PowerMan.getTime(ID) < PowerMan.getUnlockTime()) {
+ 
+		if (PowerMan.powerUps[ID].isLocked()) {
+			
 			GetComponent<SpriteRenderer> ().color = new Color (0.4f, 0.4f, 0.4f);
-		} else {
+		}
+		else {
+			
 			GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f);
 		}
 	}
