@@ -161,16 +161,16 @@ public class Interactible : MonoBehaviour
 					//POWER UP IS ON COOLDOWN OR LOCKED OR TERMINAL IS NOT IDLE
 					else 
 					{
-						//POWER UP IS LOCKED OR NOT IDLE - play not working sound
-						//if (PowerMan.powerUps[0].isLocked() || PowerMan.getTerminalState() != PowerupManager.TerminalState.Idle) 
-						//{
-							//audioSource.clip = AudioClips [0];
-						//} 
-						//POWER UP IS UNLOCKED 
-						//else {
-							
+						//POWER UP UNLOCKING
+						if (PowerMan.powerUps[0].isLocked() && PowerMan.getTerminalState() == PowerupManager.TerminalState.Idle && PowerMan.powerUps[0].getChargeRequired() <= PowerMan.getCharge()) 
+						{
+							audioSource.clip = AudioClips [0];
+						} 
+						//BUTTON NOT WORKNG
+						else 
+						{
 							audioSource.clip = AudioClips [1];
-						//}
+						}
 
 						audioSource.Play ();
 					}
@@ -181,34 +181,35 @@ public class Interactible : MonoBehaviour
 				
 			case ButtonType.PURGE:
 	
-				//IF FUSE IS BROKEN
+				//IF FUSE IS BROKEN - play not working sound
 				if (fuseBox.getState () == FuseBox.FuseState.broken) 
 				{
 					audioSource.clip = AudioClips [1];
 					audioSource.Play ();
 				}
+
 				//IF FUSE IS WORKING
 				else if (fuseBox.getState () == FuseBox.FuseState.working) 
 				{
-					//POWERUP IS OFF COOLDOWN
-					if (PowerMan.powerUps[2].OnCoolDown() == false && PowerMan.powerUps[0].isLocked() == false && PowerMan.getTerminalState() == PowerupManager.TerminalState.Idle)
+					//POWERUP IS OFF COOLDOWN & UNLOCKED & TERMINAL IS IDLE - send power up flat is VR play working sound
+					if (PowerMan.powerUps[2].OnCoolDown() == false &&  PowerMan.powerUps[2].isLocked() == false && PowerMan.getTerminalState() == PowerupManager.TerminalState.Idle) 
 					{
 						pwr.PurgeButton ();
 						audioSource.clip = AudioClips [0];
-						audioSource.Play ();			
+						audioSource.Play ();
 					} 
-					//POWER UP IS ON COOLDOWN
+					//POWER UP IS ON COOLDOWN OR LOCKED OR TERMINAL IS NOT IDLE
 					else 
 					{
-						if (PowerMan.powerUps[1].isLocked()) 
+						//POWER UP UNLOCKING
+						if (PowerMan.powerUps[2].isLocked() && PowerMan.getTerminalState() == PowerupManager.TerminalState.Idle && PowerMan.powerUps[2].getChargeRequired() <= PowerMan.getCharge()) 
 						{
 							audioSource.clip = AudioClips [0];
-		
 						} 
+						//BUTTON NOT WORKNG
 						else 
 						{
 							audioSource.clip = AudioClips [1];
-
 						}
 
 						audioSource.Play ();
@@ -220,41 +221,44 @@ public class Interactible : MonoBehaviour
 				
 			case ButtonType.SHIELD:
 		
-				//IF FUSE IS BROKEN
-				if (fuseBox.getState () == FuseBox.FuseState.broken) 
-				{
-					audioSource.clip = AudioClips [1];
-					audioSource.Play ();
 
-				}
-				//IF FUSE IS WORKING
-				else if (fuseBox.getState () == FuseBox.FuseState.working) 
+			//IF FUSE IS BROKEN - play not working sound
+			if (fuseBox.getState () == FuseBox.FuseState.broken) 
+			{
+				audioSource.clip = AudioClips [1];
+				audioSource.Play ();
+			}
+
+			//IF FUSE IS WORKING
+			else if (fuseBox.getState () == FuseBox.FuseState.working) 
+			{
+				//POWERUP IS OFF COOLDOWN & UNLOCKED & TERMINAL IS IDLE - send power up flat is VR play working sound
+				if (PowerMan.powerUps[1].OnCoolDown() == false &&  PowerMan.powerUps[1].isLocked() == false && PowerMan.getTerminalState() == PowerupManager.TerminalState.Idle) 
 				{
-					//POWERUP IS OFF COOLDOWN
-					if (PowerMan.powerUps[1].OnCoolDown() == false && PowerMan.powerUps[0].isLocked() == false && PowerMan.getTerminalState() == PowerupManager.TerminalState.Idle)
+					pwr.SheildButton ();
+					audioSource.clip = AudioClips [0];
+					audioSource.Play ();
+				} 
+				//POWER UP IS ON COOLDOWN OR LOCKED OR TERMINAL IS NOT IDLE
+				else 
+				{
+					//POWER UP UNLOCKING
+					if (PowerMan.powerUps[1].isLocked() && PowerMan.getTerminalState() == PowerupManager.TerminalState.Idle && PowerMan.powerUps[1].getChargeRequired() <= PowerMan.getCharge()) 
 					{
-						pwr.SheildButton ();
 						audioSource.clip = AudioClips [0];
-						audioSource.Play ();						
-					}
-					//POWER UP IS ON COOLDOWN
+					} 
+					//BUTTON NOT WORKNG
 					else 
 					{
-						if (PowerMan.powerUps[0].isLocked())
-						{
-							audioSource.clip = AudioClips [0];
-						} 
-						else 
-						{
-							audioSource.clip = AudioClips [1];
-						}
-
-						audioSource.Play ();
+						audioSource.clip = AudioClips [1];
 					}
 
-					PowerMan.usePowerUp (1);
+					audioSource.Play ();
 				}
-				break;
+
+				PowerMan.usePowerUp (1);
+			}
+			break;
 
 			//DOOR - switch between open and closed
 			case ButtonType.DOOR:

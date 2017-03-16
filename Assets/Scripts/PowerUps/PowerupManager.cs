@@ -53,7 +53,15 @@ public class PowerupManager : MonoBehaviour {
 		//if the fusebox is working
 		if (fuseBox.getState() == FuseBox.FuseState.working) {
 
+
 			//Play sound when enough charge has been reached to unlock a powerup
+			for(int i = 0; i<= 2; i ++){
+				if ((int)charge >= powerUps[i].getChargeRequired() && powerUps[i].getSoundPlayed() == false) {
+					audioSource.clip = audioClips [0];
+					audioSource.Play ();
+					powerUps [i].unlockedSoundPlayed ();
+				}
+			}
 
 			//flagged that powerup is unlocking
 			if (terminalState == TerminalState.Unlocking) {

@@ -53,7 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   locked: 1
-  chargeRequired: 20
+  chargeRequired: 50
   coolDownTimer: 0
   unlockTime: 15
   onCooldown: 1
+  soundPlayed: 0

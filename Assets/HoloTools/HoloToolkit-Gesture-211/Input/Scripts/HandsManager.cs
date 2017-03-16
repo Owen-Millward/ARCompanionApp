@@ -8,8 +8,6 @@ namespace Academy.HoloToolkit.Unity
     /// </summary>
     public class HandsManager : Singleton<HandsManager>
     {
-        [Tooltip("Audio clip to play when Finger Pressed.")]
-        public AudioClip FingerPressedSound;
         private AudioSource audioSource;
 
         /// <summary>
@@ -45,20 +43,7 @@ namespace Academy.HoloToolkit.Unity
 
         private void EnableAudioHapticFeedback()
         {
-            // If this hologram has an audio clip, add an AudioSource with this clip.
-            if (FingerPressedSound != null)
-            {
-                audioSource = GetComponent<AudioSource>();
-                if (audioSource == null)
-                {
-                    audioSource = gameObject.AddComponent<AudioSource>();
-                }
-
-                audioSource.clip = FingerPressedSound;
-                audioSource.playOnAwake = false;
-                audioSource.spatialBlend = 1;
-                audioSource.dopplerLevel = 0;
-            }
+      
         }
 
         private void InteractionManager_SourceDetected(InteractionSourceState hand)
@@ -78,12 +63,6 @@ namespace Academy.HoloToolkit.Unity
         {
             if (InteractibleManager.Instance.FocusedGameObject != null)
             {
-                // Play a select sound if we have an audio source and are not targeting an asset with a select sound.
-                if (audioSource != null && !audioSource.isPlaying &&
-                    (InteractibleManager.Instance.FocusedGameObject.GetComponent<Interactible>() != null))
-                {
-                    audioSource.Play();
-                }
 
                 // 2.a: Cache InteractibleManager's FocusedGameObject in FocusedGameObject.
                 FocusedGameObject = InteractibleManager.Instance.FocusedGameObject;

@@ -23,6 +23,12 @@ public class FuseBox : MonoBehaviour {
 	private int targetRotation;	//Where is the handle rotating too 
 	[Tooltip("How long it takes to rotate the handle")]
 	public float rotationTime;	//how long to rotate
+
+	//Audio
+	[Tooltip("AudioSource for this sound (this)")]
+	public AudioSource audioSource;		//source for audio
+	[Tooltip("Sounds related to this object")]
+	public AudioClip[] audioClips;		//sound clips
 		
 
 	/// <summary>
@@ -72,18 +78,32 @@ public class FuseBox : MonoBehaviour {
 	/// <summary>
 	/// Changes the state to broken.
 	///	Changes the target rotation for the handle to up.
+	/// Play broken sound
 	/// </summary>
 	public void fuseBreak(){
 		fuseState = FuseState.broken;
+
+		audioSource.clip = audioClips [0];
+		audioSource.volume = 1.0f;
+		audioSource.loop = true;
+		audioSource.Play ();
+
 		targetRotation = -35;
 	}
 
 	/// <summary>
 	/// Changes the state to working.
 	/// Changes the target rotation for the handle to down.
+	/// Play fix sound
 	/// </summary>
 	public void fuseFix(){
 		fuseState = FuseState.working;
+
+		audioSource.clip = audioClips [1];
+		audioSource.volume = 0.15f;
+		audioSource.loop = false;
+		audioSource.Play ();
+
 		targetRotation = 35;
 	}
 

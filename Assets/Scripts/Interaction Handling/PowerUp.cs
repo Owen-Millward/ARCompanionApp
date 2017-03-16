@@ -16,6 +16,8 @@ public class PowerUp : MonoBehaviour {
 	public float unlockTime;		//limit for the powerups cooldown timer
 	[Tooltip("Is the power up on cooldown?")]
 	public bool onCooldown;         //is the powerup onCoolDown
+	[Tooltip("has the sound has been played or not?")]
+	public bool soundPlayed = false; //if the sound has been played or not
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PowerupManager+PowerUp"/> struct.
@@ -24,12 +26,13 @@ public class PowerUp : MonoBehaviour {
 		/// <param name="ChargeRequired">Charge required to unlock.</param>
 		/// <param name="UnlockTime">Length of Cooldown.</param>
 		public PowerUp(int Id, int ChargeRequired, float UnlockTime){
-			this.ID = Id;							
-			this.locked = true;						
-			this.chargeRequired = ChargeRequired;
-			this.coolDownTimer = 0.0f;
-			this.unlockTime = UnlockTime;
-			this.onCooldown = true;
+			ID = Id;							
+			locked = true;						
+			chargeRequired = ChargeRequired;
+			coolDownTimer = 0.0f;
+			unlockTime = UnlockTime;
+			onCooldown = true;
+			soundPlayed = false;
 		}
 
 		/// <summary>
@@ -54,8 +57,25 @@ public class PowerUp : MonoBehaviour {
 		/// </summary>
 		/// <returns>Charge required to unlock power up.</returns>
 		public int getChargeRequired(){
-
+			
 			return chargeRequired;
+		}
+		
+		/// <summary>
+		/// play the be unlocked sound.
+		/// </summary>
+		public void unlockedSoundPlayed(){
+
+			soundPlayed = true;
+		}
+		
+		/// <summary>
+		/// has the unlock sound been played or not?
+		/// </summary>
+		/// <returns><c>true</c>, if can be unlocked sound was played, <c>false</c> otherwise.</returns>
+		public bool getSoundPlayed(){
+			
+			return soundPlayed;
 		}
 
 		/// <summary>
@@ -94,11 +114,13 @@ public class PowerUp : MonoBehaviour {
 
 			float percent;
 
-			if (coolDownTimer == 0.0f) {
+			if (coolDownTimer == 0.0f) 
+			{
 
 				percent = 0;
 			} 
-			else {
+			else 
+			{
 
 				percent = coolDownTimer / unlockTime;
 			}

@@ -29,7 +29,7 @@ public class GazeCharge : MonoBehaviour {
 			
 			//if working change color to percent charge and display charge 
 			if (fuseBox.getState () == FuseBox.FuseState.working) {
-				GetComponent<Renderer> ().material.color = new Color (1.0f-(PowerMan.getCharge()/100.0f), PowerMan.getCharge()/100.0f, 0);
+				GetComponent<Renderer> ().material.color = new Color (1.0f-(PowerMan.getCharge()/100.0f), (PowerMan.getCharge()/100.0f), 0);
 				GetComponent<TextMesh> ().text = ((int)PowerMan.getCharge ()).ToString () + '%';
 			} 
 			else 
