@@ -183,9 +183,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: de6c2d89700b4244986358f625f5fcd2, type: 2}
-  - {fileID: 2100000, guid: 8d78ccb745c76a746bc7cba9c7e71efb, type: 2}
-  - {fileID: 2100000, guid: e45f6b8bcf6d9824192dca10a1d05b9a, type: 2}
+  - {fileID: 2100000, guid: 5410365b91127a74d9eceee97d81bb57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -216,7 +214,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763184318154378}
-  m_Mesh: {fileID: 4300000, guid: 6c540db9220aec34993254ce9e088d0d, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 67d8e895cb9ef5b49bfb65c3d883ed93, type: 3}
 --- !u!65 &65095349469671680
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -298,7 +296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1efafb4e5a9a346ab63a4e76d0a3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetFeedbackSound: {fileID: 8300000, guid: ff5e599af1172384c917bcc75ec8928e, type: 3}
   AudioClips:
   - {fileID: 8300000, guid: ff5e599af1172384c917bcc75ec8928e, type: 3}
   - {fileID: 8300000, guid: 41224be21316ef3498851b8fa08b5c22, type: 3}

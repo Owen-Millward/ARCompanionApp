@@ -86,7 +86,7 @@ public class PowerupManager : MonoBehaviour {
 				if (terminalState == TerminalState.UsingPowerUp) {
 					//reset timer
 
-					powerUps [unlockID].resetCoolDown ();
+					powerUps [useID].resetCoolDown ();
 					terminalState = TerminalState.Idle;
 				}
 
