@@ -180,7 +180,14 @@ namespace HoloToolkit.Unity.InputModule
         /// <summary>
         /// Override for enable functions
         /// </summary>
-        protected virtual void OnEnable() { }
+        protected virtual void OnEnable()
+        {
+            if (gazeManager)
+            {
+                OnFocusedObjectChanged(null, gazeManager.HitObject);
+            }
+            OnCursorStateChange(CursorStateEnum.None);
+        }
 
         /// <summary>
         /// Override for disable functions
@@ -190,6 +197,8 @@ namespace HoloToolkit.Unity.InputModule
             TargetedObject = null;
             TargetedCursorModifier = null;
             visibleHandsCount = 0;
+            IsHandVisible = false;
+            OnCursorStateChange(CursorStateEnum.Contextual);
         }
 
         private void OnDestroy()
@@ -208,8 +217,9 @@ namespace HoloToolkit.Unity.InputModule
             gazeManager.FocusedObjectChanged += OnFocusedObjectChanged;
 
             // Register the cursor as a global listener, so that it can always get input events it cares about
-            InputManager.Instance.AddGlobalListener(gameObject);
-
+            if (gameObject != null) { 
+            InputManager.Instance.AddGlobalListener(this.gameObject);
+        }
             // Setup the cursor to be able to respond to input being globally enabled / disabled
             if (InputManager.Instance.IsInputEnabled)
             {
@@ -285,6 +295,7 @@ namespace HoloToolkit.Unity.InputModule
             if (TargetedObject == null)
             {
                 this.TargetedObject = null;
+                this.TargetedCursorModifier = null;
                 targetPosition = gazeManager.GazeOrigin + gazeManager.GazeNormal * DefaultCursorDistance;
                 targetRotation = lookForward.magnitude > 0 ? Quaternion.LookRotation(lookForward, Vector3.up) : transform.rotation;
             }

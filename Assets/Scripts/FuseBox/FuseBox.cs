@@ -48,7 +48,7 @@ public class FuseBox : MonoBehaviour {
 	/// </summary>
 	void Update () {
 
-		if ((((int)PowerMan.getCharge ()) % multiple) == 0) {
+		if ((((int)PowerMan.getCharge ()) % multiple) == 0 && (int)PowerMan.getCharge()!= 100) {
 			
 			currentRoll = (int)PowerMan.getCharge();
 

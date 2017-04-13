@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Unity.InputModule;
+using System;
 
-public class GazeCharge : MonoBehaviour {
+public class GazeCharge : MonoBehaviour, IFocusable
+{
 
 	private bool gazing;
 	[Tooltip("PowerUpManager (Managers)")]
@@ -42,20 +45,13 @@ public class GazeCharge : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// Response to GazeEntered Message
-	/// </summary>
-	void GazeEntered()
-	{
-		gazing = true;
-	}
+    public void OnFocusEnter()
+    {
+        gazing = true;
+    }
 
-	/// <summary>
-	/// Response to GazeExited Message
-	/// </summary>
-	void GazeExited()
-	{
-		gazing = false;
-	}
-
+    public void OnFocusExit()
+    {
+        gazing = false;
+    }
 }
