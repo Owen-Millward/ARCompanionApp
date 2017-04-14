@@ -29,7 +29,7 @@ public class ToolTip : MonoBehaviour, IInputClickHandler {
 
 
         gameObject.transform.position = HoverAbove.transform.position;
-        gameObject.transform.position += new Vector3(0,HoverAbove.GetComponentInChildren<MeshRenderer>().bounds.size.y,0);
+		gameObject.transform.position += new Vector3(0,( HoverAbove.GetComponentInChildren<MeshRenderer>().bounds.size.y) * 1.25f,0);
         gameObject.transform.rotation = HoverAbove.transform.rotation;
         gameObject.transform.Rotate(new Vector3(0, 180, 0));
         

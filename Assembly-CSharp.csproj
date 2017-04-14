@@ -453,6 +453,7 @@
      <Compile Include="Assets\Scripts\PowerUps\PowerUpController.cs" />
      <Compile Include="Assets\Scripts\PowerUps\PowerupManager.cs" />
      <Compile Include="Assets\Scripts\PowerUps\UnlockBar.cs" />
+     <Compile Include="Assets\Scripts\TerminalPlacementManager.cs" />
      <Compile Include="Assets\Scripts\Tooltips\TipManager.cs" />
      <Compile Include="Assets\Scripts\Tooltips\ToolTip.cs" />
      <Compile Include="Assets\_MK\_MKGlow\_Demo\Code\MK_DemoControl.cs" />

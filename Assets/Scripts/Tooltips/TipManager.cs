@@ -21,6 +21,10 @@ public class TipManager : MonoBehaviour {
     {
 		if (ToolTips [tipNumber] != null && ToolTips [tipNumber].GetComponent<MeshRenderer> ().enabled == false) {
 			ToolTips [tipNumber].GetComponent<MeshRenderer> ().enabled = true;
+			ToolTips [tipNumber].gameObject.GetComponentInChildren<SpriteRenderer> ().enabled = true;
+			ToolTips [tipNumber].gameObject.GetComponentsInChildren<MeshRenderer> ()[1].enabled = true;
+			ToolTips [tipNumber].gameObject.GetComponentsInChildren<MeshRenderer> ()[2].enabled = true;
+
 			ToolTips [tipNumber].GetComponent<ToolTip> ().playAudio ();
 		}
     }
