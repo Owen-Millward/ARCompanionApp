@@ -28,8 +28,15 @@ public class PowerupManager : MonoBehaviour {
 	[Tooltip("AudioSource (this)")]
 	public AudioSource audioSource;	//Audio source for playing clips
 
+	//Tool tips
+	[SerializeField]
+	[Tooltip("ToolTips parent object")]
+	private TipManager tipManager;
+
+
 	/// <summary>
 	/// Start the game with terminal state in idle and all powerups being initialised
+	/// Show Gaze and Communication terminal ToolTips
 	/// </summary>
 	void Start () {
 
@@ -38,6 +45,9 @@ public class PowerupManager : MonoBehaviour {
 		if (audioSource == null) {
 			audioSource = GetComponent<AudioSource> ();
 		}
+
+		tipManager.ShowTip (0);
+		tipManager.ShowTip (6);
 	}
 
 	/// <summary>
@@ -47,12 +57,12 @@ public class PowerupManager : MonoBehaviour {
 	/// Using powerups
 	/// Cooldowns for powerups
 	/// 
+	/// dismiss tooltips
 	/// </summary>
 	void Update () {
 
 		//if the fusebox is working
 		if (fuseBox.getState() == FuseBox.FuseState.working) {
-
 
 			//Play sound when enough charge has been reached to unlock a powerup
 			for(int i = 0; i<= 2; i ++){
@@ -72,6 +82,15 @@ public class PowerupManager : MonoBehaviour {
 				//when unlocked
 				if (powerUps[unlockID].OnCoolDown() == false) {
 
+					//dismiss can unlock tool tip
+					tipManager.DismissTip(2);
+					tipManager.DismissTip (9);
+
+					//show unlocked and send tip
+					tipManager.ShowTip(4);
+					tipManager.ShowTip(5);
+
+
 					//power up has finished unlocking and player can charge again
 					terminalState = TerminalState.Idle;
 
@@ -81,7 +100,7 @@ public class PowerupManager : MonoBehaviour {
 			}
 
 			else {
-				
+
 				//not currently unlocking but powerup is being used
 				if (terminalState == TerminalState.UsingPowerUp) {
 					//reset timer
@@ -93,12 +112,29 @@ public class PowerupManager : MonoBehaviour {
 				//manage timers for cooldowns after use
 				for (int i = 0; i < 3; i++) {
 					
-					if (powerUps[i].isLocked() == false && powerUps[i].OnCoolDown()) {
+					if (powerUps [i].isLocked () == false && powerUps [i].OnCoolDown ()) {
 						
 						powerUps [i].coolDown ();
+					} 
+					else 
+					{
+						//dismiss cooldown tip
+						tipManager.DismissTip(8);
 					}
 				}
 			}
+		}
+
+		//dismiss gaze tip show win tip
+		if ((int)charge == 10) {
+			tipManager.DismissTip (0); 	//gaze
+			tipManager.ShowTip (1);		//win
+		}
+
+		//show unlock tip
+		if (charge >= powerUps [0].getChargeRequired ()) {
+			tipManager.ShowTip (2);
+			tipManager.ShowTip (3);
 		}
 	}
 
@@ -119,9 +155,10 @@ public class PowerupManager : MonoBehaviour {
 					charge += Time.deltaTime * timeModifier;
 				}
 
-				//deals error showing percentage above 100
+				//deals error showing percentage above 100 dismiss win tip
 				if (charge > 100.0f) {
-					
+
+					tipManager.DismissAll ();
 					charge = 100.0f;
 					audioSource.clip = audioClips [1];
 					audioSource.Play ();
@@ -149,6 +186,10 @@ public class PowerupManager : MonoBehaviour {
 		//check for enough charge and that another ability isnt currently being unlocked
 		if (charge >= powerUps[powerUpID].getChargeRequired() && terminalState == TerminalState.Idle && powerUps[powerUpID].isLocked()) {
 
+			//tooltip
+			tipManager.DismissTip(3); // unlock button
+			tipManager.ShowTip(9); //cannot charge
+
 			//set unlocking to true
 			terminalState = TerminalState.Unlocking;
 			unlockID = powerUpID;
@@ -156,6 +197,13 @@ public class PowerupManager : MonoBehaviour {
 
 		//USE ABILITY
 		else if (powerUps[powerUpID].isLocked() == false && terminalState == TerminalState.Idle && powerUps[powerUpID].OnCoolDown() == false) {
+
+			//dismiss tool tip
+			tipManager.DismissTip(4);
+			tipManager.DismissTip(5);
+			//show cooldowntip
+			tipManager.ShowTip(8);
+
 			terminalState = TerminalState.UsingPowerUp;
 			useID = powerUpID;
 		}

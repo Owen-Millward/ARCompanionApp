@@ -35,6 +35,7 @@ using UnityEngine;
         //Gameplay
         private int charge; //current charge of powerupmanager
 
+
         /// <summary>
         /// Initialisation:
         /// 

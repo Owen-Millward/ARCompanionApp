@@ -30,6 +30,15 @@ public class FuseBox : MonoBehaviour {
 	[Tooltip("Sounds related to this object")]
 	public AudioClip[] audioClips;		//sound clips
 		
+	//Tool tips
+	[SerializeField]
+	[Tooltip("ToolTips parent object")]
+	private TipManager tipManager;
+
+	//fuses
+	[SerializeField]
+	[Tooltip("List of fuse object in box")]
+	private List<GameObject> fuses;
 
 	/// <summary>
 	/// Start the game with the fuse box working, prevent a roll on 0% and set the rotation of the handle to the working position.
@@ -81,6 +90,10 @@ public class FuseBox : MonoBehaviour {
 	/// Play broken sound
 	/// </summary>
 	public void fuseBreak(){
+
+		//tool tip
+		tipManager.ShowTip(7);
+
 		fuseState = FuseState.broken;
 
 		audioSource.clip = audioClips [0];
@@ -89,6 +102,10 @@ public class FuseBox : MonoBehaviour {
 		audioSource.Play ();
 
 		targetRotation = -35;
+
+		foreach (GameObject fuse in fuses) {
+			fuse.GetComponent<Fuse> ().turnOff ();
+		}
 	}
 
 	/// <summary>
@@ -97,6 +114,10 @@ public class FuseBox : MonoBehaviour {
 	/// Play fix sound
 	/// </summary>
 	public void fuseFix(){
+
+		//dismiss tooltip
+		tipManager.DismissTip(7);
+
 		fuseState = FuseState.working;
 
 		audioSource.clip = audioClips [1];
@@ -105,6 +126,10 @@ public class FuseBox : MonoBehaviour {
 		audioSource.Play ();
 
 		targetRotation = 35;
+
+		foreach (GameObject fuse in fuses) {
+			fuse.GetComponent<Fuse> ().turnOn ();
+		}
 	}
 
 	/// <summary>

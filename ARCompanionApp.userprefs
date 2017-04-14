@@ -1,16 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Interaction Handling\GazeCharge.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tooltips\ToolTip.cs">
     <Files>
       <File FileName="Assets\Scripts\Interaction Handling\MicrophoneManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Interaction Handling\PowerUp.cs" Line="118" Column="5" />
-      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="59" Column="60" />
+      <File FileName="Assets\Scripts\PowerUps\PowerupManager.cs" Line="204" Column="22" />
       <File FileName="Assets\Scripts\PowerUps\UnlockBar.cs" Line="12" Column="40" />
-      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FuseBox\FuseBox.cs" Line="103" Column="28" />
-      <File FileName="Assets\HoloTools\HoloToolkit-Gesture-211\Input\Scripts\HandsManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interaction Handling\GazeCharge.cs" Line="38" Column="46" />
-      <File FileName="Assets\HoloTools\HoloToolkit-Gesture-211\Input\Scripts\GestureManager.cs" Line="74" Column="12" />
+      <File FileName="Assets\Scripts\Interaction Handling\Interactible.cs" Line="38" Column="1" />
+      <File FileName="Assets\Scripts\FuseBox\FuseBox.cs" Line="112" Column="27" />
+      <File FileName="Assets\Scripts\Interaction Handling\GazeCharge.cs" Line="38" Column="9" />
+      <File FileName="Assets\Scripts\Tooltips\TipManager.cs" Line="22" Column="100" />
+      <File FileName="Assets\Scripts\Tooltips\ToolTip.cs" Line="32" Column="67" />
+      <File FileName="Assets\Scripts\FuseBox\Fuse.cs" Line="28" Column="79" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

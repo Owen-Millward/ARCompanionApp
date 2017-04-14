@@ -487,6 +487,8 @@
     <Compile Include="Assets\Scripts\PowerUps\PowerUpController.cs" />
     <Compile Include="Assets\Scripts\PowerUps\PowerupManager.cs" />
     <Compile Include="Assets\Scripts\PowerUps\UnlockBar.cs" />
+    <Compile Include="Assets\Scripts\Tooltips\TipManager.cs" />
+    <Compile Include="Assets\Scripts\Tooltips\ToolTip.cs" />
     <Compile Include="Assets\_MK\_MKGlow\_Demo\Code\MK_DemoControl.cs" />
     <Compile Include="Assets\_MK\_MKGlow\_Demo\Code\MK_RotateObject.cs" />
     <Compile Include="Assets\_MK\_MKGlow\_Internal\MKGlow.cs" />
